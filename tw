@@ -7,18 +7,27 @@ require 'twitter'
 
 CONFIG = YAML::load(File.read(File.expand_path('~')+'/configs/twitter.yaml'))
 
+
 if ARGV.length < 1
   puts "Usage: tw <tweet>"
   exit
 end
 
+input = nil
+if !STDIN.tty?
+  input = $stdin.read
+end
+
+tweet = "#{ARGV.join(' ')} #{input}".strip 
+
 begin
   httpauth = Twitter::HTTPAuth.new(
     CONFIG[:login][:username], 
-    CONFIG[:login][:password], 
+    CONFIG[:login][:password] 
   )
   client = Twitter::Base.new(httpauth)
-  client.update(ARGV.join(' '))
+  client.update(tweet)
+  puts "Tweet: #{tweet}"
 rescue SocketError => e
   puts "Oops, #{e.inspect}"
 end
