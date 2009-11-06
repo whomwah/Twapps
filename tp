@@ -1,0 +1,27 @@
+#!/usr/bin/ruby
+
+require 'rubygems'
+require 'httpclient'
+
+# a simple TwitPic client
+
+CONFIG = YAML::load(File.read(File.expand_path('~')+'/configs/twitter.yaml'))
+
+if ARGV.length < 1
+  puts "Usage: tp path/to/image"
+  exit
+end
+
+begin
+  r = HTTPClient.post 'http://twitpic.com/api/upload', { 
+    :username => CONFIG[:login][:username], 
+    :password => CONFIG[:login][:password], 
+    :media => File.new(File.expand_path(ARGV[0])) 
+  }
+
+  puts r.body.content.match(/<mediaurl[^>]*>(.*?)<\/mediaurl>/)[1] 
+rescue SocketError => e
+  puts "Oops, #{e.inspect}"
+rescue Errno::ENOENT => e
+  puts "File Error, #{e.inspect}"
+end

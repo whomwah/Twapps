@@ -1,0 +1,24 @@
+#!/usr/bin/ruby
+
+require 'rubygems'
+require 'twitter'
+
+# a simple TwitPic client
+
+CONFIG = YAML::load(File.read(File.expand_path('~')+'/configs/twitter.yaml'))
+
+if ARGV.length < 1
+  puts "Usage: tw <tweet>"
+  exit
+end
+
+begin
+  httpauth = Twitter::HTTPAuth.new(
+    CONFIG[:login][:username], 
+    CONFIG[:login][:password], 
+  )
+  client = Twitter::Base.new(httpauth)
+  client.update(ARGV.join(' '))
+rescue SocketError => e
+  puts "Oops, #{e.inspect}"
+end
