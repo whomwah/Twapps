@@ -26,7 +26,7 @@ begin
     CONFIG[:login][:password] 
   )
   client = Twitter::Base.new(httpauth)
-  #client.update(tweet)
+  client.update(tweet)
   puts "Tweeted: #{tweet}"
 rescue SocketError => e
   puts "Oops, #{e.inspect}"
