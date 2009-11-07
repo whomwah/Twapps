@@ -20,8 +20,6 @@ begin
   }
 
   puts r.body.content.match(/<mediaurl[^>]*>(.*?)<\/mediaurl>/)[1] 
-rescue SocketError => e
+rescue SocketError, Errno::ENOENT => e
   puts "Oops, #{e.inspect}"
-rescue Errno::ENOENT => e
-  puts "File Error, #{e.inspect}"
 end

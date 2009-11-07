@@ -1,0 +1,29 @@
+A couple of simple Twitter clients
+----------------------------------
+
+These are a couple of command line programs I wrote on the
+train the other day on the way home. Very simple in concept, 
+they may break, I just wanted to tweet from the terminal
+and also wanted to be able to send images to TwitPic.
+
+tw <message> 
+Lets you post a message to Twitter. It returns the message sent
+
+tp <path/to/image> 
+Lets you post an image to TwitPic. It returns the url of the image
+
+Examples:
+
+tw Hello World
+tw "Hello with ' in it" 
+
+tp ~/path/to/image.jpg
+tp path/to/image.jpg
+
+tp ~/path/to/image.jpg | tw Check out this image
+
+
+Required gems:
+
+httpclient
+twitter
