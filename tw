@@ -7,7 +7,6 @@ require 'twitter'
 
 CONFIG = YAML::load(File.read(File.expand_path('~')+'/configs/twitter.yaml'))
 
-
 if ARGV.length < 1
   puts "Usage: tw <tweet>"
   exit
