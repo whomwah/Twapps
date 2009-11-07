@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'twitter'
 
-# a simple TwitPic client
+# a simple Twitter client
 
 CONFIG = YAML::load(File.read(File.expand_path('~')+'/configs/twitter.yaml'))
 
